@@ -1,1 +1,139 @@
+repeat
+	task.wait()
+until game:IsLoaded() and game.Players.LocalPlayer
 
+if not Executed then
+	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "flow2", Text = "user " .. game.Players.LocalPlayer.Name .. " | execution successful", Duration = 10})
+else
+	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "flow2", Text = "you already injected flow bud", Duration = 10})
+	while true do
+		task.wait(6000)
+	end
+end
+
+
+getgenv().Executed = true
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FortniBloxYT1/Venyx-UI/main/Venyx.lua"))()
+local FlowHub = Library.new("flow2", 5013109572)
+local Player, UIS, RS, VU, TeleportService , KIGMToggled, TeleSpeed, SpamMelee, AntiGrabRespawn, SpamKi, ServerDestroyer, RespawnKey, OtherRespawnKey, Buying, BuyingEXP, SpammingMoves, AutoFarming, Attacking, HeavyAttacking , SilentEGM, ResetStamina, Ressetting, BeanSpam, AutoFarming, AutoForm, TpKey, NpcsMode, AutoBlock, LoopAttach, OldPercentatge, Power, autoFarmDistance = game.Players.LocalPlayer, game:GetService("UserInputService"), game:GetService("RunService"),game:GetService("VirtualUser"),game:GetService("TeleportService"),false,false,false,false,false,false,Enum.KeyCode.Comma,Enum.KeyCode.Clear,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,Enum.KeyCode.Clear,100,100,2
+local TouchyCFrame
+local Toggled = false
+local SkyBeam = false
+if game.PlaceId == 536102540 then
+	TouchyCFrame = workspace.Touchy.Part.CFrame
+end
+local SlowValues = {"xx","Action","Activity","SuperAction","Attacking","Using","heavy","hyper","Hyper","Tele","tele","Slow","Killed","KiBlasted","Hyper","Dodging","KiBlasting","BStun","creator","KnockBacked","NotHardBack","evasive","Velocity","zDASZzxc"}
+local MeleeMoves = {"Meteor Crash","Anger Rush","Wolf Fang Fist","Neo Wolf Fang Fist","Deadly Dance","God Slicer","Sweep Kick","TS Molotov","Flash Skewer","Demon Flash","Strong Kick","Masenko","Big Bang Kamehameha","Flash Strike","Aerial Breaker"}
+local KiMoves = {"Blaster Meteor","Explosive Grip","Super Volley","Unrelenting Volley","Finish Breaker","Genocide Shell","Murder Grenade","Hell Pillars","Justicle Flash","Divine Lasso","Spirit Ball","Death Beam Barrage"}
+local FireValues = {"Attacking","Action","heavy","hyper","Hyper","Using"}
+local Trackables = {"KiBlast","Blast"}
+local Magnitude = 12
+
+FlowHub:setTheme("Glow",Color3.fromRGB(255,255,255))
+
+FlowHub:setTheme("Accent",Color3.fromRGB(181,175,193))
+
+local Themes = {
+	Background = Color3.fromRGB(24, 24, 24),
+	Glow = Color3.fromRGB(255, 255, 255),
+	Accent = Color3.fromRGB(181,175,193),
+	LightContrast = Color3.fromRGB(20, 20, 20),
+	DarkContrast = Color3.fromRGB(14, 14, 14),
+	TextColor = Color3.fromRGB(255, 255, 255),
+}
+
+local Name = "flow2/config.json"
+
+local DefaultSettings = {
+    CloseUI = "Clear"
+}
+
+if not isfolder("flow2") then
+	makefolder("flow2")
+	writefile(Name, game:service'HttpService':JSONEncode(DefaultSettings))
+end
+
+local ActualSettings = {}
+
+if not pcall(function() readfile(Name) end) then writefile(Name, game:service'HttpService':JSONEncode(DefaultSettings)) end
+
+local Settings = game:service'HttpService':JSONDecode(readfile(Name))
+
+ActualSettings.CloseUI = Settings.CloseUI
+
+local function Save()
+    writefile(Name,game:service'HttpService':JSONEncode(ActualSettings))
+end
+
+
+
+local Visuals = FlowHub:addPage("visuals",5012544693)
+local Presets = Visuals:addSection("presets")
+
+Presets:addButton("hyperia",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/hyperia"))()
+	end)
+end)
+
+Presets:addButton("(dra)conic",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/(dra)conic"))()
+	end)
+end)
+
+Presets:addButton("eternal",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/eternal"))()
+	end)
+end)
+
+Presets:addButton("grimm",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/grimm"))()
+	end)
+end)
+
+Presets:addButton("noctua",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/noctua"))()
+	end)
+end)
+
+local Time = Visuals:addSection("time")
+
+Time:addToggle("day", nil, function(day)
+	if day then
+		Day = true
+		while Day do
+			task.wait()
+			game.Lighting.ClockTime = 14
+		end
+	else
+		Day = false
+	end
+end)
+
+Time:addToggle("evening", nil, function(evening)
+	if evening then
+		Evening = true
+		while Evening do
+			task.wait()
+			game.Lighting.ClockTime = 17.60
+		end
+	else
+		Evening = false
+	end
+end)
+
+Time:addToggle("night", nil, function(night)
+	if night then
+		Night = true
+		while Night do
+			task.wait()
+			game.Lighting.ClockTime = 0
+		end
+	else
+		Night = false
+	end
+end)
