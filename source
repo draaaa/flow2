@@ -296,6 +296,12 @@ Time:addToggle("night", nil, function(night)
 	end
 end)
 
+local Misc = Visuals:addSection("misc")
+
+Misc:addSlider("FOV", 70, 1, 120, function(FOV)
+	workspace.CurrentCamera.FieldOfView = FOV
+end)
+
 --//////////END OF VISUALS PAGE//////////
 
 local Exploits = FlowHub:addPage("exploits", 5012544693)
