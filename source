@@ -65,6 +65,164 @@ local function Save()
     writefile(Name,game:service'HttpService':JSONEncode(ActualSettings))
 end
 
+local function ResetRace()
+	if Player.Character.Race.Value == "Saiyan" or Player.Character.Race.Value == "Android" or Player.Character.Race.Value == "Human" then
+		return true
+	else
+		return false
+	end
+end
+
+local function ResetCharacter()
+	Player.Character.Humanoid.Health = 0
+	Player.Character.Head:Destroy()
+end
+
+local function Respawn()
+	if game.PlaceId ~= 536102540 then ResetCharacter() return end
+	if game.PlaceId == 536102540 and not ResetRace() then ResetCharacter() return end
+	Player.Character:WaitForChild('HumanoidRootPart')
+	Toggled = true
+	CurrentFrame3 = Player.Character.HumanoidRootPart.CFrame
+	Player.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs["Hair Stylist"])
+	task.wait(.430)
+	game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"})
+	task.wait(.430)
+	Player.Backpack.HairScript.RemoteEvent:FireServer("woah")
+
+	Player.CharacterAdded:Connect(function()
+		if not Toggled then
+			return
+		end
+		getgenv().loadingCharacter = true
+		repeat
+			task.wait()
+			Player.Character.HumanoidRootPart.CFrame = CurrentFrame3
+		until Player.Character:FindFirstChild("PowerOutput")
+		Toggled = false
+		task.delay(1,function()
+            		repeat task.wait(.1) until Player.PlayerGui:FindFirstChild("HUD")
+            		getgenv().loadingCharacter = false
+        	end)
+	end)
+end
+
+local function changeSlot(Slot,CF)
+    Player.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs["Character Slot Changer"])
+    task.wait(.550)
+    Player.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"})
+    task.wait(.550)
+    Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+    task.wait(.550)
+    Player.Backpack.ServerTraits.ChatAdvance:FireServer({Slot})
+	task.wait(4)
+	game:GetService("TweenService"):Create(Player.Character.HumanoidRootPart,TweenInfo.new(1.2,Enum.EasingStyle.Linear,Enum.EasingDirection.In,0,false,0),{CFrame = CF}):Play()
+end
+
+local function buyBeans()
+	Player.Backpack.ServerTraits.ChatStart:FireServer(game:GetService("Workspace").FriendlyNPCs["Korin BEANS"])
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({Types})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({amountt})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({Color})
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+	task.wait(.450)
+	if amountt == "80" then
+		Player.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"})
+	else
+		Player.Backpack.ServerTraits.ChatAdvance:FireServer({"Use Zenni"})
+	end
+	task.wait(.450)
+	Player.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+	task.wait(1)
+end
+
+local function findExtra(PlayerName)
+	if game.Players:FindFirstChild(PlayerName) then
+		if workspace.Live[PlayerName]:FindFirstChild("RebirthWings") then
+			Extraa = "Rebirth"
+			return Extraa
+		end
+		if workspace.Live[PlayerName]:FindFirstChild("RealHalo") then
+			Extraa = "Heaven"
+			return Extraa
+		end
+		if not workspace.Live[PlayerName]:FindFirstChild("RebirthWings") and not workspace.Live[PlayerName]:FindFirstChild("RealHalo") then
+			Extraa = "Pure"
+			return Extraa
+		end
+	end
+end
+
+UIS.InputBegan:Connect(function(Input,GameProcessedEvent)
+	if GameProcessedEvent then return end
+	if Input.KeyCode == RespawnKey then
+		if game.PlaceId == 536102540 and ResetRace() then
+			Respawn()
+		else
+			ResetCharacter()
+		end
+	end
+end)
+
+UIS.InputBegan:Connect(function(Input,GameProcessedEvent)
+	if GameProcessedEvent then return end
+	if Input.KeyCode == OtherRespawnKey then
+		game.Players.LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(game.Workspace.FriendlyNPCs["Hair Stylist"])
+		task.wait(.450)
+		game.Players.LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"})
+		task.wait(.450)
+		game.Players.LocalPlayer.Backpack.HairScript.RemoteEvent:FireServer("woah")
+	end
+end)
+
+UIS.InputBegan:Connect(function(Input,GameProcessedEvent)
+	if GameProcessedEvent then return end
+	if Input.KeyCode == Enum.KeyCode.V and SkyBeam then
+		if Player.Character:FindFirstChild("Blast") then
+			if Player.Character.Blast:FindFirstChild("Weld") then
+				Player.Character.Blast.Weld:Destroy()
+				Player.Character.Blast.Anchored = false
+			end
+		end
+	end
+end)
+
+UIS.InputBegan:Connect(function(Input,GameProcessedEvent)
+	if GameProcessedEvent then return end
+	if Input.KeyCode == TpKey then
+		local function findNearest()
+			local Nearest = nil
+			local t = {math.huge}
+			for _,v in pairs(workspace.Live:GetChildren()) do
+				if v:FindFirstChild("Damagers") then
+					continue
+				end
+				local Distance = (Player.Character.HumanoidRootPart.Position - v.HumanoidRootPart.Position).magnitude
+				if v.Name ~= Player.Name and Distance < t[1] then
+					t[1] = Distance
+					Nearest = v
+				end
+			end
+			return Nearest
+		end
+		Player.Backpack.ServerTraits.Vanish:FireServer()
+		local Target = findNearest()
+		Player.Character.HumanoidRootPart.CFrame = Target.HumanoidRootPart.CFrame * CFrame.new(0,0,2)
+		workspace.CurrentCamera.CFrame = Target.Head.CFrame
+	end
+end)
 
 
 local Visuals = FlowHub:addPage("visuals",5012544693)
@@ -137,3 +295,60 @@ Time:addToggle("night", nil, function(night)
 		Night = false
 	end
 end)
+
+--//////////END OF VISUALS PAGE//////////
+
+local Exploits = FlowHub:addPage("exploits", 5012544693)
+local LegitExp = Exploits:addSection("legit exploits")
+LegitExp:addButton("spychat",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/spychat"))()
+	end)
+end)
+
+LegitExp:addButton("manual reset",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/manualreset"))()
+	end)
+end)
+
+LegitExp:addButton("automatic reset",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/automaticreset"))()
+	end)
+end)
+
+--//////////END OF EXPLOITS PAGE//////////
+
+local Script = FlowHub:addPage("scripts", 5012544693)
+local Scripts = Script:addSection("scripts")
+Scripts:addButton("rejoin",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Rejoin-Game/main/Rejoin%20Game.lua"))()
+	end)
+end)
+
+--//////////END OF SCRIPTS PAGE//////////
+
+local Settings = FlowHub:addPage("settings", 5012544693)
+local Colors = Settings:addSection("colors")
+
+for theme, color in pairs(Themes) do
+	Colors:addColorPicker(theme, color, function(color3)
+		FlowHub:setTheme(theme, color3)
+	end)
+end
+local Plus = Settings:addSection("menu")
+
+Plus:addKeybind("toggle ui", Enum.KeyCode[ActualSettings.CloseUI], function()
+	FlowHub:toggle()
+end,function(Key)
+    Settings.CloseUI = tostring(Key.KeyCode):gsub("%a+%.%a+%.","")
+    ActualSettings.CloseUI = tostring(Key.KeyCode):gsub("%a+%.%a+%.","")
+    Save()
+end)
+
+
+--//////////END OF OPTIONS PAGE//////////
+
+local Credits = FlowHub:addPage("credits", 5012544693)
