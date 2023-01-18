@@ -3,7 +3,9 @@ repeat
 until game:IsLoaded() and game.Players.LocalPlayer
 
 if not Executed then
-	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "flow2", Text = "user " .. game.Players.LocalPlayer.Name .. " | execution successful", Duration = 10})
+	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "flow2", Text = "user " .. game.Players.LocalPlayer.Name .. " successfully executed", Duration = 10})
+	wait(5)
+	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "flow2", Text = "open console (F9) to see changelog", Duration = 10})
 else
 	game:GetService("StarterGui"):SetCore("SendNotification", {Title = "flow2", Text = "you already injected flow bud", Duration = 10})
 	while true do
@@ -258,6 +260,13 @@ Presets:addButton("noctua",function()
 	end)
 end)
 
+Presets:addButton("alien",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/ablue"))()
+	end)
+end)
+
+
 local Time = Visuals:addSection("time")
 
 Time:addToggle("day", nil, function(day)
@@ -298,41 +307,56 @@ end)
 
 local Misc = Visuals:addSection("misc")
 
-Misc:addSlider("FOV", 70, 1, 120, function(FOV)
+Misc:addSlider("fov", 70, 1, 120, function(FOV)
 	workspace.CurrentCamera.FieldOfView = FOV
 end)
+
+Misc:addSlider("saturation", 0.2, -25, 25, function(Saturation)
+	game.Lighting.ColorCorrection.Saturation = Saturation
+end)
+
 
 --//////////END OF VISUALS PAGE//////////
 
 local Exploits = FlowHub:addPage("exploits", 5012544693)
-local LegitExp = Exploits:addSection("legit exploits")
-LegitExp:addButton("spychat",function()
+local Exp = Exploits:addSection("cheats")
+
+Exp:addButton("cyrus",function()
 	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/spychat"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/cyrusRM/main/source"))()
 	end)
 end)
 
-LegitExp:addButton("manual reset",function()
-	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/manualreset"))()
-	end)
-end)
-
-LegitExp:addButton("automatic reset",function()
-	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/automaticreset"))()
-	end)
-end)
 
 --//////////END OF EXPLOITS PAGE//////////
 
 local Script = FlowHub:addPage("scripts", 5012544693)
-local Scripts = Script:addSection("scripts")
+local Scripts = Script:addSection("functions")
 Scripts:addButton("rejoin",function()
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Rejoin-Game/main/Rejoin%20Game.lua"))()
 	end)
 end)
+
+Scripts:addButton("spychat",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/spychat"))()
+	end)
+end)
+
+Scripts:addButton("reset",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/flow2resources/main/reset"))()
+	end)
+end)
+
+local Trolls = Script:addSection("fun shit")
+Trolls:addButton("ball",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/SHIT/main/ball"))()
+	end)
+end)
+
 
 --//////////END OF SCRIPTS PAGE//////////
 
@@ -357,4 +381,24 @@ end)
 
 --//////////END OF OPTIONS PAGE//////////
 
-local Credits = FlowHub:addPage("credits", 5012544693)
+print([[
+flow2 executed 
+last update - 1/18/23
+(+) added saturation > visauls > misc
+(+) added alien > visuals > presets
+(+) added various scripts > scripts / exploits
+(=) combined the two different options for the reset key | the automatic teleport reset does not work without the manual teleport reset, maybe ill add non-teleporting variants later
+(=) moved legit funcs to scripts tab from exploits 
+(-) removed credits tab | i just decided to move everything that i would put there to the console
+
+----------
+
+i just wanna say thank you to everybody. ive had a hell of alot of fun making this kind of thing for a while, but it wouldnt have been possible without you
+thanks to:
+everybody in main gc, for all of the laughs, fun times, and long lasting memories
+digi and qn, for always being there for me, and still sticking with me to this day
+val, for pushing me to be the best i can (still remember the signs fuck you kid)
+and you, the user, for injecting this code into this god-forsaken game 
+i love all of you!
+
+]])
