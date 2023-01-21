@@ -16,7 +16,7 @@ end
 
 getgenv().Executed = true
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FortniBloxYT1/Venyx-UI/main/Venyx.lua"))()
-local FlowHub = Library.new("flow2", 5013109572)
+local FlowHub = Library.new("flow2.0.2", 5013109572)
 local Player, UIS, RS, VU, TeleportService , KIGMToggled, TeleSpeed, SpamMelee, AntiGrabRespawn, SpamKi, ServerDestroyer, RespawnKey, OtherRespawnKey, Buying, BuyingEXP, SpammingMoves, AutoFarming, Attacking, HeavyAttacking , SilentEGM, ResetStamina, Ressetting, BeanSpam, AutoFarming, AutoForm, TpKey, NpcsMode, AutoBlock, LoopAttach, OldPercentatge, Power, autoFarmDistance = game.Players.LocalPlayer, game:GetService("UserInputService"), game:GetService("RunService"),game:GetService("VirtualUser"),game:GetService("TeleportService"),false,false,false,false,false,false,Enum.KeyCode.Comma,Enum.KeyCode.Clear,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,Enum.KeyCode.Clear,100,100,2
 local TouchyCFrame
 local Toggled = false
@@ -383,13 +383,15 @@ end)
 
 print([[
 flow2 executed 
-last update - 1/18/23
+last update - 1/20/23
 (+) added saturation > visauls > misc
 (+) added alien > visuals > presets
 (+) added various scripts > scripts / exploits
 (=) combined the two different options for the reset key | the automatic teleport reset does not work without the manual teleport reset, maybe ill add non-teleporting variants later
 (=) moved legit funcs to scripts tab from exploits 
 (-) removed credits tab | i just decided to move everything that i would put there to the console
+
+(+) added version to hub name but didnt think it was important enough to clear the 2.0.1 changelog
 
 ----------
 
