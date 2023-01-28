@@ -16,7 +16,7 @@ end
 
 getgenv().Executed = true
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/FortniBloxYT1/Venyx-UI/main/Venyx.lua"))()
-local FlowHub = Library.new("flow2.0.2", 5013109572)
+local FlowHub = Library.new("flow2.0.3e", 5013109572)
 local Player, UIS, RS, VU, TeleportService , KIGMToggled, TeleSpeed, SpamMelee, AntiGrabRespawn, SpamKi, ServerDestroyer, RespawnKey, OtherRespawnKey, Buying, BuyingEXP, SpammingMoves, AutoFarming, Attacking, HeavyAttacking , SilentEGM, ResetStamina, Ressetting, BeanSpam, AutoFarming, AutoForm, TpKey, NpcsMode, AutoBlock, LoopAttach, OldPercentatge, Power, autoFarmDistance = game.Players.LocalPlayer, game:GetService("UserInputService"), game:GetService("RunService"),game:GetService("VirtualUser"),game:GetService("TeleportService"),false,false,false,false,false,false,Enum.KeyCode.Comma,Enum.KeyCode.Clear,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,Enum.KeyCode.Clear,100,100,2
 local TouchyCFrame
 local Toggled = false
@@ -319,11 +319,43 @@ end)
 --//////////END OF VISUALS PAGE//////////
 
 local Exploits = FlowHub:addPage("exploits", 5012544693)
-local Exp = Exploits:addSection("cheats")
+local Admins = Exploits:addSection("admins")
 
-Exp:addButton("cyrus",function()
+Admins:addButton("cyrus",function()
 	pcall(function()
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/draaaa/cyrusRM/main/source"))()
+	end)
+end)
+
+local Exp = Exploits:addSection("exploits")
+
+Exp:addToggle("noslow", nil, function(BNS)
+	if BNS then
+		BNSRun = RS.RenderStepped:Connect(function()
+			pcall(function()
+				for _, v in ipairs(Player.Character:GetChildren()) do
+					if table.find(SlowValues, v.Name) then
+						v:Destroy()
+					end
+					if v.Name == "Block" and v.Value then
+						v.Value = false
+					end
+					if v:FindFirstChild("BodyVelocity") then
+						v.BodyVelocity:Destroy()
+					end
+				end
+			end)
+		end)
+	else
+		if BNSRun then
+			BNSRun:Disconnect()
+		end
+	end
+end)
+
+Exp:addButton("lock",function()
+	pcall(function()
+		loadstring(game:HttpGet("https://rhttps://raw.githubusercontent.com/draaaa/flow2resources/main/LOCK"))()
 	end)
 end)
 
@@ -383,23 +415,18 @@ end)
 
 print([[
 flow2 executed 
-last update - 1/20/23
-(+) added saturation > visauls > misc
-(+) added alien > visuals > presets
-(+) added various scripts > scripts / exploits
-(=) combined the two different options for the reset key | the automatic teleport reset does not work without the manual teleport reset, maybe ill add non-teleporting variants later
-(=) moved legit funcs to scripts tab from exploits 
-(-) removed credits tab | i just decided to move everything that i would put there to the console
-
-(+) added version to hub name but didnt think it was important enough to clear the 2.0.1 changelog
-
+last update - 1/25/23
+(+) added noslow > exploits > exploits
+(+) added lock > exploits > exploits
+(-) the lock doesnt really work yet LOL, this update is more kind of a base for what's soon to come for the non-legit features that could be added. if you have any ideas or scripts that could be added to the non-legit section of flow2, hmu on my discord @ dra#8109
+(=) sorted exploits section
 ----------
 
 i just wanna say thank you to everybody. ive had a hell of alot of fun making this kind of thing for a while, but it wouldnt have been possible without you
 thanks to:
 everybody in main gc, for all of the laughs, fun times, and long lasting memories
 digi and qn, for always being there for me, and still sticking with me to this day
-val, for pushing me to be the best i can (still remember the signs fuck you kid)
+val, for pushing me to do the best i can (DONT LET VAL BE BEHIND YOU AT ALL COSTS)
 and you, the user, for injecting this code into this god-forsaken game 
 i love all of you!
 
